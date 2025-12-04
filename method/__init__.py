@@ -14,3 +14,4 @@ from .delete import *
 from .salun import *
 from .l2ul import *
 from .bad_teacher import *
+from .geoforget import geoforget
