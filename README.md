@@ -1,13 +1,13 @@
-# Geodesic Unlearning (GeodesicUL)
+# GeoForget
 
-**Geodesic Unlearning (GeodesicUL)** is a mathematically rigorous framework for machine unlearning, leveraging **Riemannian geometry** to overcome the limitations of standard Euclidean optimization. This repository provides code and methodology to safely and effectively erase information from deep learning models while maximizing utility.
+**GeoForget** is a mathematically rigorous framework for machine unlearning, leveraging **Riemannian geometry** to overcome the limitations of standard Euclidean optimization. This repository provides code and methodology to safely and effectively erase information from deep learning models while maximizing utility.
 
 ---
 
 ## 🚀 Core Idea: "Rails vs. Anchors"
 
 - **Standard unlearning** methods (like L2UL or Finetuning) treat all parameters equally (Euclidean distance), often damaging model utility by "dragging" parameters off the manifold of valid solutions.
-- **GeodesicUL** redefines the problem using the **Fisher-Rao Metric**:
+- **GeoForget** redefines the problem using the **Fisher-Rao Metric**:
 
   - **Rails:** Instead of freezing weights (EWC "anchors"), the Fisher Information Matrix builds "rails" guiding optimization, so the model slides along the curvature of the "Remain Data" manifold.
   - **Engine:** A targeted adversarial attack pushes the model away from the forget class, while a KL-divergence term safely bounds the unlearning energy.
@@ -27,7 +27,7 @@
 
 In standard deep learning, parameters are treated as points in a flat Euclidean space (all changes are equal).
 
-GeodesicUL treats parameters as points on a curved statistical manifold, equipped with the Fisher Information Matrix (FIM) as the Riemannian metric.
+GeoForget treats parameters as points on a curved statistical manifold, equipped with the Fisher Information Matrix (FIM) as the Riemannian metric.
 
 - **Approximated Geodesic Distance:**
   ```
@@ -50,10 +50,10 @@ GeodesicUL treats parameters as points on a curved statistical manifold, equippe
 **Installation:**  
 Clone the repository and install dependencies (standard PyTorch stack).
 
-**Run Geodesic Unlearning Example:**
+**Run GeoForget Unlearning Example:**
 ```bash
 python main.py \
-  --method geodesic_ul \
+  --method geoforget \
   --unlearn_rate 1e-4 \
   --adv_lambda 0.1 \
   --geo_lambda 10.0 \
@@ -68,26 +68,17 @@ python main.py \
 
 ---
 
-## 📊 Results Comparison
+## 📊 GeoForget Results
 
-| Dataset         | Method                 | Remain Acc | Forget Acc | MIA Privacy Score |
-|-----------------|-----------------------|:----------:|:----------:|:-----------------:|
-| CIFAR-10        | Original Model         |   95.1%    |   96.2%    |      0.00         |
-|                 | Retrain from Scratch   |   94.8%    |    0.0%    |      1.00         |
-|                 | Finetune (Euclidean)   |   88.2%    |    0.0%    |      0.45         |
-|                 | L2UL                   |   91.5%    |    0.0%    |      0.72         |
-|                 | GeodesicUL (Ours)      |   94.5%    |    0.0%    |      0.91         |
-| CIFAR-100       | Finetune               |   62.4%    |    1.5%    |      0.51         |
-|                 | L2UL                   |   68.3%    |    0.8%    |      0.68         |
-|                 | GeodesicUL (Ours)      |   73.1%    |    0.5%    |      0.88         |
-| VGG Face        | Finetune               |   82.1%    |    0.2%    |      0.60         |
-|                 | L2UL                   |   85.4%    |    0.1%    |      0.75         |
-|                 | GeodesicUL (Ours)      |   89.2%    |    0.0%    |      0.94         |
+| Dataset         | Remain Acc | Forget Acc | MIA Privacy Score |
+|-----------------|:----------:|:----------:|:-----------------:|
+| CIFAR-10        |   94.5%    |    0.0%    |      0.91         |
+| CIFAR-100       |   73.1%    |    0.5%    |      0.88         |
+| VGG Face        |   89.2%    |    0.0%    |      0.94         |
 
 *Note: "MIA Privacy Score" is normalized (1.0 = Indistinguishable from Retrained Model). Higher is better.*
 
-GeodesicUL demonstrates superior privacy-utility trade-offs compared to Euclidean baselines, especially on complex manifolds like Faces and CIFAR-100.
-
+GeoForget demonstrates superior privacy-utility trade-offs on complex manifolds like Faces and CIFAR-100.
 
 
 ## License
