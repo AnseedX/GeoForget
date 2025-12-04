@@ -426,6 +426,25 @@ if __name__ == '__main__':
                                                     ############## 我的额外自定义参数开始
                                                     soft_label=args.soft_label
         )
+
+
+    elif args.method == 'geodesic_ul':
+        unlearn_model = method.geodesic_ul(
+            ori_model, 
+            train_forget_loader, 
+            train_remain_loader, # Note: Needs remain loader for Fisher Info
+            num_classes,
+            args.unlearn_epoch, 
+            args.unlearn_rate,
+            logger=logger, 
+            console_handler=console_handler,
+            loader_dict=loader_dict, 
+            experiment_path=experiment_path, 
+            disable_bn=disable_bn,
+            adv_eps=args.adv_eps, 
+            adv_lambda=args.adv_lambda,
+            geo_lambda=args.geo_lambda
+        )
     elif args.method == 'ablation': 
         unlearn_model = method.my_method_ablation(ori_model, train_forget_loader,
                                                     args.unlearn_epoch, args.unlearn_rate,
