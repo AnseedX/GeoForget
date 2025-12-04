@@ -72,9 +72,9 @@ python main.py \
 
 | Dataset         | Remain Acc | Forget Acc | MIA Privacy Score |
 |-----------------|:----------:|:----------:|:-----------------:|
-| CIFAR-10        |   94.5%    |    0.0%    |      0.91         |
-| CIFAR-100       |   73.1%    |    0.5%    |      0.88         |
-| VGG Face        |   89.2%    |    0.0%    |      0.94         |
+| CIFAR-10        |   92.8%    |    0.0%    |      0.87         |
+| CIFAR-100       |   73.1%    |    0.5%    |      0.71         |
+| VGG Face        |   89.2%    |    0.0%    |      0.78         |
 
 *Note: "MIA Privacy Score" is normalized (1.0 = Indistinguishable from Retrained Model). Higher is better.*
 
